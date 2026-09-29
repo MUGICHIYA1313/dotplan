@@ -1,6 +1,6 @@
 // DOTPLAN service worker — アプリ本体をキャッシュしてオフラインでも起動できるようにする
 // アプリを更新したら VERSION の数字を上げると、次回起動時に新しい版へ切り替わります。
-const VERSION = 'dotplan-v1';
+const VERSION = 'dotplan-v2';
 const FONT_CACHE = 'dotplan-fonts';
 const SHELL = [
   './',
