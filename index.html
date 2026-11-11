@@ -15,7 +15,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=JetBrains+Mono:wght@400;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Mono:wght@400;500&family=Murecho:wght@400;500;700&display=swap">
 <style>
 /* DOTPLAN v2 — 白い紙に、墨・透ける青・黄色の3版で刷ったような見た目。
    重なった青と黄色は multiply で緑に混ざる（シルクスクリーンの刷り重ね）。
@@ -26,9 +26,9 @@
   --blue:#1F6FD6;--blue-t:rgba(31,111,214,.78);--blue-w:rgba(31,111,214,.16);
   --yel:#FFD21F;--yel-t:rgba(255,210,31,.88);--yel-w:rgba(255,210,31,.42);
   --red:var(--blue);--redt:var(--blue);
-  --dot:'Dela Gothic One','Hiragino Sans',sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,monospace;
-  --jp:'Zen Kaku Gothic New',-apple-system,'Hiragino Sans',sans-serif;
+  --dot:'Bungee','Murecho','Hiragino Sans',sans-serif;
+  --mono:'DM Mono',ui-monospace,monospace;
+  --jp:'Murecho',-apple-system,'Hiragino Sans',sans-serif;
   --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -65,7 +65,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;padding:0 14px 14px;touch-action:pan-y}
 .wk{height:66px;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:0;position:relative;isolation:isolate}
 .wk .s{font-size:11px;color:var(--muted)}
-.wk .d{font-family:var(--dot);font-size:17px;width:38px;height:38px;border-radius:19px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--hair);background:var(--card)}
+.wk .d{font-family:var(--dot);font-size:15px;width:38px;height:38px;border-radius:19px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--hair);background:var(--card)}
 .wk .p{width:5px;height:5px;border-radius:3px}
 .wk.has .p{background:var(--ink)}
 .wk.today .d{border-color:var(--ink)}
@@ -91,7 +91,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .now .mid{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin:12px 0}
 .now .ttl{font-size:21px;font-weight:700;display:block}
 .now .sub{font-size:12px;color:var(--muted);display:block;margin-top:4px}
-.now .rng{font-family:var(--dot);font-size:22px;line-height:1;white-space:nowrap}
+.now .rng{font-family:var(--dot);font-size:19px;line-height:1;white-space:nowrap}
 .now .rng span{color:var(--dim)}
 .segs{display:grid;gap:3px}
 .segs i{height:8px;border-radius:4px;background:var(--seg)}
@@ -101,7 +101,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 
 /* rows */
 .row{display:flex;align-items:center;gap:14px;width:100%;padding:12px 0;border:none;border-top:1px solid var(--hair);background:none;text-align:left;min-height:52px}
-.row .tm{width:52px;flex-shrink:0;font-family:var(--dot);font-size:15px}
+.row .tm{width:56px;flex-shrink:0;font-family:var(--dot);font-size:14px}
 .row .tm.txt{font-family:var(--jp);font-size:13px;font-weight:700}
 .row .rb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .row .rt{font-size:15px;font-weight:500;overflow-wrap:anywhere}
@@ -136,7 +136,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px soli
 .cal .dows span:first-child{color:var(--blue)}
 .cal .grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:2px}
 .cc{height:50px;border:none;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0;color:var(--ink);position:relative;isolation:isolate}
-.cc .n{font-family:var(--dot);font-size:14px;width:30px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center}
+.cc .n{font-family:var(--dot);font-size:12.5px;width:30px;height:30px;border-radius:15px;display:flex;align-items:center;justify-content:center}
 .cc .mks{display:flex;gap:3px;height:6px}.cc .mk{width:6px;height:6px}
 .cc.out{color:#A5A5A0}
 .cc.today .n::after{content:"";position:absolute;z-index:-1;width:30px;height:30px;border-radius:15px;background:var(--yel-t);transform:translate(3px,3px);mix-blend-mode:multiply}
@@ -272,7 +272,7 @@ textarea{width:100%;border:none;background:none;font-size:16px;line-height:1.6;r
 .lane .ln{position:relative;height:6px;background:var(--seg);border-radius:3px;overflow:hidden}
 .lane .ln i{position:absolute;top:0;bottom:0;background:var(--yel);border-radius:3px}
 .bestbox{display:flex;align-items:center;justify-content:space-between;gap:10px;border-top:1px solid var(--hair);padding:12px 0 6px;margin-top:10px}
-.bestbox b{font-family:var(--dot);font-weight:400;font-size:18px}
+.bestbox b{font-family:var(--dot);font-weight:400;font-size:16px}
 .cd{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
 .cd i{width:12px;height:12px;border-radius:6px;border:1.5px solid var(--blue)}
 .cd i.past{background:var(--blue-t);border-color:transparent}
@@ -281,7 +281,7 @@ textarea{width:100%;border:none;background:none;font-size:16px;line-height:1.6;r
 .dl:first-of-type{border-top:none}
 .dl .h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
 .dl .h b{font-size:15px}
-.dl .left{font-family:var(--dot);font-size:15px;white-space:nowrap}
+.dl .left{font-family:var(--jp);font-weight:700;font-size:14px;white-space:nowrap}
 .dl .who{font-size:12px;color:var(--muted)}
 .btnrow{display:flex;gap:8px;flex-wrap:wrap}
 .some{display:flex;align-items:center;gap:10px;padding:12px 0;border-top:1px solid var(--hair)}
