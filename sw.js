@@ -1,6 +1,6 @@
 // DOTPLAN service worker — アプリ本体をキャッシュしてオフラインでも起動できるようにする
 // アプリを更新したら VERSION の数字を上げると、次回起動時に新しい版へ切り替わります。
-const VERSION = 'dotplan-v2';
+const VERSION = 'dotplan-v3';
 const FONT_CACHE = 'dotplan-fonts';
 const SHELL = [
   './',
@@ -41,6 +41,8 @@ self.addEventListener('fetch', (e) => {
 
   // ページ本体: ネット優先（更新をすぐ反映）、オフライン時はキャッシュ
   if (req.mode === 'navigate') {
+    // 前のデザイン（v1/）はキャッシュしない：本体のキャッシュと混ざらないように
+    if (url.pathname.includes('/v1/')) return;
     e.respondWith(
       fetch(req).then((r) => { const cp = r.clone(); caches.open(VERSION).then((c) => c.put('./index.html', cp)); return r; })
         .catch(() => caches.match('./index.html'))
