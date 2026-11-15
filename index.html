@@ -702,7 +702,8 @@ function vSettings() {
     <section class="card"><div class="card-h"><span class="mono">TOGETHER — なかま</span></div>
       <p class="note">「なかま」は共有のプロトタイプです。仲間はデモ用の架空の人で、まだ本当の同期はしません。</p>
       <button class="textbtn" data-action="resetSocial">${IC.repeat}なかまのデモをリセット</button></section>
-    <section class="card"><div class="card-h"><span class="mono">ABOUT</span><span class="mono">v3.1</span></div>
+    <section class="card"><div class="card-h"><span class="mono">ABOUT</span><span class="mono">v3.2</span></div>
+      <button class="textbtn" onclick="window.DPTune&&DPTune.open()">${IC.rightS}デザイン調整モードを開く</button>
       <p class="note">DOTPLAN — 予定の中身は見せずに、「いま」と「これから」の気配だけを仲間と共有するタスク＆カレンダー。オフラインでも動作します。</p>
       <a class="textbtn" href="v2/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v2）を開く</a>
       <a class="textbtn" href="v1/" style="color:inherit;text-decoration:none">${IC.rightS}最初のデザイン（v1）を開く</a></section>
@@ -1485,5 +1486,6 @@ if ('serviceWorker' in navigator && location.protocol === 'https:') {
 }
 })();
 </script>
+<script src="tune.js"></script>
 </body>
 </html>
