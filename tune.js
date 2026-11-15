@@ -1,12 +1,12 @@
 // DOTPLAN デザイン調整モード
 // 色・角丸・透け・影・数字の大きさを、画面を見ながらスライダーで調整できる。
-// 設定は localStorage（dotplan:tune:v1）に保存され、起動時に自動で反映される。
+// 設定は localStorage（dotplan:tune:v4）に保存され、起動時に自動で反映される。
 (function () {
-  const KEY = 'dotplan:tune:v1';
+  const KEY = 'dotplan:tune:v4';
   const DEF = {
-    bg: '#F3F4F1', ink: '#151515', blue: '#1F6FD6', yel: '#FFD21F',
-    blueGlow: 30, yelGlow: 42, r: 22, glass: 78, blur: 14, shadow: 35,
-    big: 64, weight: 800, dock: '#151515', active: '#FFD21F'
+    bg: '#EEEEEC', ink: '#151515', blue: '#1F6FD6', yel: '#FFD21F',
+    blueGlow: 0, yelGlow: 0, r: 18, glass: 100, blur: 0, shadow: 8,
+    big: 56, weight: 800, dock: '#FFFFFF', active: '#EDEDEB'
   };
   const FIELDS = [
     { g: '色' },
@@ -49,7 +49,7 @@ html,body{background:${v.bg}}
 .card.print{box-shadow:0 0 0 1.5px rgba(${b},.78),0 18px 34px -18px rgba(${b},.65)}
 .mini.blue{box-shadow:0 8px 18px -10px rgba(${b},.9)}
 .big{font-size:${v.big}px;font-weight:${v.weight}}
-.tabbar{background:rgba(${rgb(v.dock)},.86)}
+.tabbar{background:rgba(${rgb(v.dock)},.96)}
 .tab[aria-current="page"]{background:${v.active};color:${v.ink}}`;
   }
 

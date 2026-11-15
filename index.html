@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DOTPLAN</title>
 <meta name="description" content="タスクと予定をまとめて管理する自分用アプリ">
-<meta name="theme-color" content="#F3F4F1">
+<meta name="theme-color" content="#EEEEEC">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -372,6 +372,64 @@ button:active{transform:scale(.97)}
 .mono,.grp,.sh-head h2,.cal .dows,.ticks,.mem .when,.state,.hi,.decl{font-weight:600;letter-spacing:.06em}
 .big small{font-weight:600}
 @media (prefers-reduced-motion:reduce){button{transition:none}button:active{transform:none}}
+
+/* ===== v4：白いカードと日本語の見出し。写真のように並ぶ「なかまのいま」と、白い浮かぶタブバー ===== */
+:root{--bg:#EEEEEC;--glass:#FFFFFF;--r:18px;--hl:transparent;
+  --sh:0 1px 0 rgba(255,255,255,.9) inset,0 10px 28px -18px rgba(21,21,21,.08)}
+#app::before,#app::after{display:none}
+.card,.cal,.fcard{border:none;background:var(--glass);box-shadow:var(--sh);-webkit-backdrop-filter:none;backdrop-filter:none}
+.card.print,.card.yel{box-shadow:var(--sh)}
+.card-h>.mono:first-child{font-family:var(--jp);font-size:17px;font-weight:800;color:var(--ink);letter-spacing:0;text-transform:none}
+.card.now .card-h>.mono:first-child{color:#fff}
+.iconbtn,.pill{background:#fff;border:none;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+/* ロゴ */
+.brand{padding:calc(var(--st) + 10px) 0 0;text-align:center;font-family:var(--dot);font-weight:800;font-size:19px;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;gap:7px}
+.brand .bm{position:relative;width:24px;height:16px;display:inline-block}
+.brand .bm i{position:absolute;top:0;width:16px;height:16px;border-radius:50%;mix-blend-mode:multiply}
+.brand .bm i:first-child{left:0;background:var(--blue-t)}.brand .bm i:last-child{left:8px;background:var(--yel-t)}
+.brand+.top{padding-top:4px}
+.big{font-size:56px}
+/* 週：選んだ日は黒 */
+.wk .d{background:#fff;box-shadow:none}
+.wk.sel{background:var(--ink);box-shadow:none}
+.wk.sel .d{background:#fff;color:var(--ink)}
+/* 予定とタスク：見出しはカードの外、1件ずつ白いカード */
+.card.flat{background:none;box-shadow:none;padding:0;margin-bottom:18px}
+.card.flat .card-h{padding:0 4px;min-height:40px}
+.card.flat .row,.card.flat .trow,.card.flat .empty{background:#fff;border:none;border-radius:16px;margin:0 0 8px;box-shadow:var(--sh)}
+.card.flat .row{padding:14px 16px}
+.card.flat .trow{margin-left:0;padding:4px 10px 4px 4px}
+.card.flat .empty{padding:16px}
+.card.flat .row .rt,.card.flat .trow .tt{font-weight:700}
+.card.flat .segs{margin:0 4px 10px!important}
+/* なかまのいま */
+.rail-w{margin:4px -14px 18px}
+.sec-h{display:flex;justify-content:space-between;align-items:center;padding:0 18px;min-height:40px}
+.sec-h h2{margin:0;font-size:17px;font-weight:800}
+.rail{display:flex;gap:10px;overflow-x:auto;padding:0 14px 4px;scroll-padding:0 14px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.rail::-webkit-scrollbar{display:none}
+.rc{flex:0 0 150px;scroll-snap-align:start;border:none;padding:0;background:none;text-align:left;display:flex;flex-direction:column;gap:3px}
+.rc .ph{position:relative;height:104px;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center;isolation:isolate;margin-bottom:5px}
+.rc.free .ph{background:#FFF6CF}.rc.focus .ph{background:#DCE8FA}.rc.busy .ph{background:#E2E2DF}
+.rc .ring{position:absolute;width:74px;height:74px;border-radius:50%;z-index:-1}
+.rc.free .ring{background:var(--yel-t);transform:translate(-12px,4px)}
+.rc.focus .ring{background:var(--blue-t);transform:translate(-12px,4px)}
+.rc.busy .ring{border:1.5px dashed var(--ink);transform:translate(-12px,4px)}
+.rc .ph::after{content:"";position:absolute;width:74px;height:74px;border-radius:50%;z-index:-1;transform:translate(16px,-6px);mix-blend-mode:multiply}
+.rc.free .ph::after{background:var(--blue-w)}.rc.focus .ph::after{background:var(--yel-w)}
+.rc .ini{font-weight:800;font-size:22px}.rc.focus .ini{color:#fff}
+.rc .rn{font-size:14px;font-weight:700;padding:0 2px}
+.rc .rs2{font-size:12px;color:var(--muted);padding:0 2px;line-height:1.4}
+/* 白い浮かぶタブバー＋丸い追加ボタン */
+.tabbar{left:14px;right:90px;bottom:calc(var(--sb) + 12px);padding:6px;border-radius:34px;background:rgba(255,255,255,.96);
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);box-shadow:0 10px 30px -10px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.04)}
+.tab{height:52px;color:#77776F;border-radius:26px;font-size:10px}
+.tab .lb{padding:0;white-space:nowrap;letter-spacing:-.02em}
+.tab[aria-current="page"]{color:var(--ink);background:#EDEDEB}
+.fab{right:14px;bottom:calc(var(--sb) + 12px);width:64px;height:64px;border-radius:32px;background:#fff;color:var(--ink);
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.04)}
+.fab::before{display:none}
+.toast{background:rgba(21,21,21,.92)}
 </style>
 </head>
 <body>
@@ -556,7 +614,7 @@ function segBar(done, total) {
 /* ---------- views ---------- */
 function vToday() {
   const t = todayStr(), s = st.sel, d = parse(s), isT = s === t, nm = nowMin();
-  const head = `<header class="top"><div>
+  const head = `<div class="brand" aria-label="DOTPLAN"><span class="bm" aria-hidden="true"><i></i><i></i></span>DOTPLAN</div><header class="top"><div>
       <div class="mono">${DOW_EN[d.getDay()]} — ${d.getFullYear()}.${pad(d.getMonth()+1)}</div>
       <div class="bigline"><h1 class="big">${pad(d.getDate())}</h1><span class="wd">${DOW_JP[d.getDay()]}曜日</span>${isT ? '<span class="reddot mul" title="今日"></span>' : ''}</div>
     </div><div class="hbtns">${isT ? '' : '<button class="pill" data-action="goToday">今日へ</button>'}<button class="iconbtn" data-action="tab" data-view="settings" aria-label="設定">${IC.gear}</button></div></header>`;
@@ -597,20 +655,20 @@ function vToday() {
     }
   }
 
-  const sched = `<section class="card" aria-label="予定">
-    <div class="card-h"><span class="mono">SCHEDULE</span><button class="link" data-action="toCal">カレンダー${IC.rightS}</button></div>
+  const sched = `<section class="card flat" aria-label="予定">
+    <div class="card-h"><span class="mono">予定</span><button class="link" data-action="toCal">カレンダー${IC.rightS}</button></div>
     ${evs.length ? evs.map((e) => eventRow(e, isT)).join('') : '<div class="empty">予定はありません</div>'}
   </section>`;
 
   const tl = live().filter((i) => i.kind === 'task' && (i.date === s || (isT && i.date && i.date < t && !i.done))).sort(taskSort);
   const dn = tl.filter((i) => i.done).length;
-  const tasks = `<section class="card" aria-label="タスク" style="padding-bottom:6px">
-    <div class="card-h"><span class="mono">TASKS</span>${tl.length ? `<span class="count">${dn}<span>/${tl.length}</span></span>` : ''}</div>
+  const tasks = `<section class="card flat" aria-label="タスク">
+    <div class="card-h"><span class="mono">やること</span>${tl.length ? `<span class="count">${dn}<span>/${tl.length}</span></span>` : ''}</div>
     ${segBar(dn, tl.length)}
     ${tl.length ? tl.map(taskRow).join('') : '<div class="empty">この日のタスクはありません</div>'}
   </section>`;
 
-  return `${head}<nav class="week" data-swipe="week" aria-label="週">${wk}</nav><main class="scroll">${now}${isT ? meCard() : ''}${sched}${tasks}</main>`;
+  return `${head}<nav class="week" data-swipe="week" aria-label="週">${wk}</nav><main class="scroll">${now}${isT ? meCard() + friendRail() : ''}${sched}${tasks}</main>`;
 }
 
 function vCal() {
@@ -646,8 +704,8 @@ function vCal() {
   if (!n) {
     agenda += `<div class="dash"><span class="mono">NO ITEMS</span><button class="pill" data-action="addOn" data-date="${s}">この日に追加</button></div>`;
   } else {
-    if (evs.length) agenda += `<section class="card"><div class="card-h"><span class="mono">SCHEDULE</span></div>${evs.map((e) => eventRow(e, s === t)).join('')}</section>`;
-    if (tks.length) agenda += `<section class="card" style="padding-bottom:6px"><div class="card-h"><span class="mono">TASKS</span></div>${tks.map(taskRow).join('')}</section>`;
+    if (evs.length) agenda += `<section class="card"><div class="card-h"><span class="mono">予定</span></div>${evs.map((e) => eventRow(e, s === t)).join('')}</section>`;
+    if (tks.length) agenda += `<section class="card" style="padding-bottom:6px"><div class="card-h"><span class="mono">やること</span></div>${tks.map(taskRow).join('')}</section>`;
   }
   return `${head}${legend}${cal}<main class="scroll">${agenda}</main>`;
 }
@@ -658,7 +716,7 @@ function vTasks() {
   const all = live().filter((i) => i.kind === 'task');
   const open = all.filter((i) => !i.done).sort(taskSort);
   const done = all.filter((i) => i.done).sort((a, b) => b.updatedAt - a.updatedAt);
-  const head = `<header class="top"><div><div class="mono">ALL TASKS</div>
+  const head = `<header class="top"><div><div class="mono">すべてのタスク</div>
     <div class="bigline"><h1 class="big">${pad(open.length)}<small>OPEN</small></h1></div></div></header>`;
   const seg = `<div class="segc" role="group" aria-label="表示">
     <button data-action="taskTab" data-tab="open" aria-pressed="${st.taskTab === 'open'}">未完了 ${open.length}</button>
@@ -686,26 +744,27 @@ function vTasks() {
 function vSettings() {
   const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
   const cnt = live().length;
-  const install = standalone ? '' : `<section class="card"><div class="card-h"><span class="mono">INSTALL</span></div>
+  const install = standalone ? '' : `<section class="card"><div class="card-h"><span class="mono">ホーム画面に追加</span></div>
     <p class="note">Safari の <b>共有ボタン</b> →「<b>ホーム画面に追加</b>」で、アプリとして全画面で使えます。</p></section>`;
   return `<header class="top"><div><div class="mono">SETTINGS</div><div class="bigline"><h1 class="big" style="font-size:40px">設定</h1></div></div><button class="iconbtn" data-action="tab" data-view="today" aria-label="閉じる">${IC.close}</button></header>
   <main class="scroll">${install}
-    <section class="card"><div class="card-h"><span class="mono">CATEGORY — カテゴリ名</span></div>
+    <section class="card"><div class="card-h"><span class="mono">カテゴリ名</span></div>
       ${CAT_IDS.map((c) => `<label class="field">${mk(c)}<span class="sr">カテゴリ名</span><input type="text" data-cat="${c}" value="${esc(catName(c))}" maxlength="20" enterkeyhint="done"></label>`).join('')}
     </section>
-    <section class="card"><div class="card-h"><span class="mono">DATA — データ</span><span class="count">${cnt}<span> 件</span></span></div>
+    <section class="card"><div class="card-h"><span class="mono">データ</span><span class="count">${cnt}<span> 件</span></span></div>
       <p class="note" style="border-top:1px dotted var(--line);padding-top:12px">データは<b>この端末の中だけ</b>に保存されています。機種変更やもしもの時のために、ときどきバックアップを書き出しておくと安心です。</p>
       <button class="textbtn" data-action="export">${IC.out}バックアップを書き出す</button>
       <button class="textbtn" data-action="import">${IC.inn}バックアップから復元</button>
       <button class="textbtn red" data-action="reset">${IC.trash}すべてのデータを削除</button>
     </section>
-    <section class="card"><div class="card-h"><span class="mono">TOGETHER — なかま</span></div>
+    <section class="card"><div class="card-h"><span class="mono">なかま</span></div>
       <p class="note">「なかま」は共有のプロトタイプです。仲間はデモ用の架空の人で、まだ本当の同期はしません。</p>
       <button class="textbtn" data-action="resetSocial">${IC.repeat}なかまのデモをリセット</button></section>
-    <section class="card"><div class="card-h"><span class="mono">ABOUT</span><span class="mono">v3.2</span></div>
+    <section class="card"><div class="card-h"><span class="mono">このアプリについて</span><span class="mono">v4.0</span></div>
       <button class="textbtn" onclick="window.DPTune&&DPTune.open()">${IC.rightS}デザイン調整モードを開く</button>
       <p class="note">DOTPLAN — 予定の中身は見せずに、「いま」と「これから」の気配だけを仲間と共有するタスク＆カレンダー。オフラインでも動作します。</p>
-      <a class="textbtn" href="v2/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v2）を開く</a>
+      <a class="textbtn" href="v3/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v3）を開く</a>
+      <a class="textbtn" href="v2/" style="color:inherit;text-decoration:none">${IC.rightS}2つ前のデザイン（v2）を開く</a>
       <a class="textbtn" href="v1/" style="color:inherit;text-decoration:none">${IC.rightS}最初のデザイン（v1）を開く</a></section>
   </main>`;
 }
@@ -786,7 +845,7 @@ function renderSheet() {
     timeRows += `<label class="frow">${IC.pin}<span class="lab" style="flex:0 0 auto">場所</span><input type="text" data-field="place" value="${esc(d.place)}" placeholder="任意" maxlength="200"></label>`;
   }
   const hl = id ? [] : historyFor(d.kind);
-  const hist = hl.length ? `<div class="fcard"><span class="mono">RECENT — 履歴から入力</span><div class="hist">
+  const hist = hl.length ? `<div class="fcard"><span class="mono">履歴から入力</span><div class="hist">
     ${hl.map((h) => `<button class="hchip" data-action="useHist" data-id="${h.id}">${mk(h.cat)}<span>${esc(h.title)}</span>${h.kind === 'event' && !h.allDay && h.time ? `<span class="dot">${h.time}</span>` : ''}</button>`).join('')}
     </div></div>` : '';
   let rep = '';
@@ -1297,6 +1356,20 @@ function meCard() {
   </section>`;
 }
 
+/* ---------- 今日の画面：なかまのいま（横にスクロール） ---------- */
+function friendRail() {
+  const g = grp();
+  const cards = g.members.map((id) => {
+    const p = personState(id), nm = PEOPLE[id] || id;
+    return `<button class="rc ${p.k}" data-action="person" data-id="${id}" aria-label="${esc(nm)}：${p.label}、${esc(p.sub)}">
+      <span class="ph"><span class="ring"></span><span class="ini">${esc(nm.slice(0, 2))}</span></span>
+      <span class="rn">${esc(nm)}</span><span class="rs2">${p.label}・${esc(p.sub)}</span></button>`;
+  }).join('');
+  return `<section class="rail-w" aria-label="なかまのいま"><div class="sec-h"><h2>なかまのいま</h2>
+    <button class="link" data-action="tab" data-view="friends">${esc(g.name)}${IC.rightS}</button></div>
+    <div class="rail">${cards}</div></section>`;
+}
+
 /* ---------- なかまの画面 ---------- */
 function vFriends() {
   const g = grp(), a = anchor();
@@ -1306,7 +1379,7 @@ function vFriends() {
     <div class="bigline"><h1 class="big">${pad(ms.filter((m) => m.st.k === 'free').length)}<small>FREE NOW</small></h1></div></div></header>`;
   const tabs = `<div class="gtabs" role="group" aria-label="グループ">${GROUPS.map((x) => `<button class="chip" data-action="group" data-v="${x.id}" aria-pressed="${x.id === g.id}">${esc(x.name)}<span class="mono" style="color:inherit">${x.members.length + 1}</span></button>`).join('')}</div>`;
   const demo = `<p class="demo"><b>プロトタイプ：</b>仲間はデモ用の架空の人です。あなたの状態は、この端末の予定と「作業をはじめる」から決まります。</p>`;
-  const people = `<section class="card" aria-label="メンバー"><div class="card-h"><span class="mono">MEMBERS</span><span class="mono">${tLabel(a)} 現在</span></div>
+  const people = `<section class="card" aria-label="メンバー"><div class="card-h"><span class="mono">メンバー</span><span class="mono">${tLabel(a)} 現在</span></div>
     <div class="members">
       <div class="mem">${pdot(mine, '自分')}<span class="nm">あなた</span><span class="when">${esc(mine.label)}</span></div>
       ${ms.map((m) => `<button class="mem" data-action="person" data-id="${m.id}" aria-label="${esc(PEOPLE[m.id])}：${m.st.label}、${m.st.sub}">${pdot(m.st, PEOPLE[m.id].slice(0, 2))}<span class="nm">${esc(PEOPLE[m.id])}</span><span class="when">${esc(m.st.sub)}</span></button>`).join('')}
@@ -1321,7 +1394,7 @@ function vFriends() {
   const ticks = [0, 60, 120, 180, 240, 300, 360].map((m) => `<span>${tLabel(a + m)}</span>`).join('');
   const lanes = lists.map((l) => `<div class="lane"><span>${esc(nameOf(l.id))}</span><span class="ln">${l.spans.map(([x, y]) => `<i style="left:${pct(x)};width:${pct(y - x)}"></i>`).join('')}</span></div>`).join('');
   const others = best ? best.who.filter((w) => w !== 'me') : [];
-  const overlap = `<section class="card print" aria-label="空き時間の重なり"><div class="card-h"><span class="mono">OVERLAP — みんなの空き</span><span class="mono">6H</span></div>
+  const overlap = `<section class="card print" aria-label="空き時間の重なり"><div class="card-h"><span class="mono">みんなの空き</span><span class="mono">6H</span></div>
     <div class="ovl"><div class="track">${bars}${best ? `<span class="best" style="left:${pct(best.s)};width:${pct(best.e - best.s)}"></span>` : ''}</div><div class="ticks">${ticks}</div>
     <div class="lanes">${lanes}</div>
     ${best && others.length ? `<div class="bestbox"><span><span class="mono">${best.who.length}人が空いてる</span><br><b>${tLabel(a + best.s)}–${tLabel(a + best.e)}</b></span>
@@ -1338,13 +1411,13 @@ function vFriends() {
     const it = find(id);
     return `<div class="dl"><div class="h"><b>あなた：${esc(it.title)}</b><span class="left">${leftText(d.due)}</span></div>${cdDots(d.made, d.due)}<span class="who">見守り：${d.watch.map(nameOf).join('・')}</span></div>`;
   }).join('');
-  const watch = `<section class="card" aria-label="宣言と見守り"><div class="card-h"><span class="mono">DECLARE — 宣言と見守り</span></div>
+  const watch = `<section class="card" aria-label="宣言と見守り"><div class="card-h"><span class="mono">宣言と見守り</span></div>
     ${theirs || mine2 ? theirs + mine2 : '<div class="empty">まだ宣言はありません</div>'}
     <p class="note">タスクを開いて「自分締切を宣言」すると、選んだ人の画面に締切までの点が出ます。</p></section>`;
 
   /* いつか */
   const sl = (so.someday[g.id] || []);
-  const some = `<section class="card" aria-label="いつかやりたいこと"><div class="card-h"><span class="mono">SOMEDAY — いつかやりたい</span><span class="count">${sl.length}</span></div>
+  const some = `<section class="card" aria-label="いつかやりたいこと"><div class="card-h"><span class="mono">いつかやりたい</span><span class="count">${sl.length}</span></div>
     <div class="addrow"><label class="sr" for="someIn">やりたいことを追加</label><input id="someIn" type="text" maxlength="80" placeholder="行きたい・やりたいことを書く" value="${esc(st.someDraft || '')}" enterkeyhint="done"><button class="mini dark" data-action="someAdd">追加</button></div>
     ${sl.map((x) => `<div class="some"><span class="tx"><b>${esc(x.title)}</b><span>${esc(nameOf(x.by))}が追加</span></span>
       ${x.plan ? `<span class="state free">${esc(x.plan)}</span>` : `<button class="mini" data-action="someSuggest" data-id="${x.id}">この日どう？</button>`}</div>`).join('') || '<div class="empty">まだありません</div>'}
