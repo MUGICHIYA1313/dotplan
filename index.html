@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>DOTPLAN</title>
 <meta name="description" content="タスクと予定をまとめて管理する自分用アプリ">
-<meta name="theme-color" content="#F6F6F3">
+<meta name="theme-color" content="#F3F4F1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -302,6 +302,73 @@ textarea{width:100%;border:none;background:none;font-size:16px;line-height:1.6;r
 .toast button{border:none;background:none;color:var(--yel);font-weight:700;height:40px;padding:0 10px;white-space:nowrap}
 .toast:not(.has-act){padding-right:18px}
 @media (prefers-reduced-motion:reduce){.pdot.focus::after,.live i{animation:none}.sheet{transition:none}}
+
+/* ===== v3：やわらかい紙の上に、ガラスのカードと刷り重ねの光 =====
+   v2 の色と文字はそのまま。墨の太い枠をやめて、細い線・大きな角丸・色のにじむ影に。
+   下のタブは浮かぶ黒いドックに、「いま」のカードは黒地にして一番目立たせる */
+:root{--bg:#F3F4F1;--hl:rgba(21,21,21,.10);--glass:rgba(255,255,255,.78);--r:22px;
+  --sh:0 1px 0 rgba(255,255,255,.9) inset,0 10px 28px -18px rgba(21,21,21,.35)}
+#app::before{content:"";position:absolute;z-index:0;pointer-events:none;top:-120px;right:-110px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,rgba(31,111,214,.30),rgba(31,111,214,0) 68%)}
+#app::after{content:"";position:absolute;z-index:0;pointer-events:none;top:-40px;right:60px;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,rgba(255,210,31,.42),rgba(255,210,31,0) 68%);mix-blend-mode:multiply}
+#view{position:relative;z-index:1}
+button{transition:transform .12s ease,background-color .15s,color .15s,box-shadow .15s}
+button:active{transform:scale(.97)}
+.card,.cal,.fcard{border:1px solid var(--hl);border-radius:var(--r);background:var(--glass);box-shadow:var(--sh);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.card{margin-bottom:14px}
+.card.print{box-shadow:0 0 0 1.5px var(--blue-t),0 18px 34px -18px rgba(31,111,214,.65)}
+.card.yel{box-shadow:0 0 0 1.5px var(--yel),0 18px 34px -18px rgba(230,180,0,.7)}
+.row,.trow,.field,.frow,.empty,.textbtn,.some,.dl,.repbox,.qm-f,.bestbox{border-top-color:rgba(21,21,21,.08)}
+.iconbtn,.pill,.chip,.mini,.segc,.prio button,.wd7 button,.hchip,.del,.sw,.state,.cheer span,
+.frow input[type=date],.frow input[type=time]{border:1px solid var(--hl);background-color:var(--glass)}
+.iconbtn,.pill{box-shadow:var(--sh)}
+.chip[aria-pressed="true"],.prio button[aria-pressed="true"],.wd7 button[aria-pressed="true"]{border-color:transparent}
+.mini.dark{background:var(--ink);border-color:var(--ink)}.mini.blue{background:var(--blue);border-color:var(--blue);box-shadow:0 8px 18px -10px rgba(31,111,214,.9)}
+.mini.yel{background:var(--yel);border-color:transparent}
+.state.free{background:var(--yel);border-color:transparent}.state.focus{background:var(--blue);border-color:transparent}
+.sw[aria-checked="true"]{background:var(--blue-t);border-color:transparent}
+.segc{border-radius:26px;box-shadow:var(--sh)}
+.tinput{border-bottom:1px solid rgba(21,21,21,.25)}
+.addrow input{border-bottom:1px solid rgba(21,21,21,.25)}
+.dash,.demo{border-width:1px;border-radius:var(--r)}
+/* 週：選んだ日は青い縦長のカプセル */
+.wk{height:72px;border-radius:20px}
+.wk .d{border:none;background:var(--glass);box-shadow:var(--sh)}
+.wk.today .d{border:none}
+.wk.sel{background:var(--blue-t);box-shadow:0 14px 24px -14px rgba(31,111,214,.9)}
+.wk.sel .s{color:#fff}.wk.sel .d{background:#fff;color:var(--ink)}.wk.sel.has .p{background:#fff}
+.wk.sel.today .d::after{display:none}
+.cc.today .n{border:none;background:var(--yel)}.cc.today .n::after{display:none}
+.cc.sel .n{background:var(--blue-t);color:#fff;box-shadow:0 8px 14px -8px rgba(31,111,214,.9)}
+/* いま：黒地のカード */
+.card.now{background:linear-gradient(145deg,#1b1c1f,#101012);color:#fff;border-color:transparent;padding:18px;
+  box-shadow:0 22px 40px -22px rgba(21,21,21,.75),0 0 0 1px rgba(255,255,255,.06) inset;position:relative;overflow:hidden}
+.card.now::after{content:"";position:absolute;right:-50px;top:-60px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(31,111,214,.55),rgba(31,111,214,0) 70%);pointer-events:none}
+.card.now .mono,.card.now .sub{color:rgba(255,255,255,.6)}
+.card.now .rng span{color:rgba(255,255,255,.45)}
+.card.now .live{color:#9CC3FF}.card.now .live i{background:#9CC3FF}
+.card.now .segs i,.card.now .bar{background:rgba(255,255,255,.14)}
+.card.now .segs i.on,.card.now .bar i{background:#5E9BF2}.card.now .segs i.cur{background:var(--yel)}
+.segs i{height:6px}
+/* 空きの重なり */
+.track{border:1px solid var(--hl);border-radius:14px;height:40px}
+.track .best{border-radius:12px;border-width:2px}
+.lane .ln{height:5px}
+/* 浮かぶドック */
+.tabbar{left:12px;right:12px;bottom:calc(var(--sb) + 10px);padding:6px;border:none;border-radius:30px;gap:0;
+  background:rgba(18,18,20,.86);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);
+  box-shadow:0 20px 40px -18px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08) inset}
+.tab{height:54px;color:rgba(255,255,255,.55);border-radius:24px;gap:3px;font-size:10px}
+.tab[aria-current="page"]{color:var(--ink);background:var(--yel);font-weight:700}
+.tab[aria-current="page"] .lb{background:none}
+.fab{right:18px;bottom:calc(var(--sb) + 88px);box-shadow:0 16px 28px -12px rgba(31,111,214,.95)}
+.scroll{padding-bottom:calc(var(--sb) + 150px)}
+.toast{bottom:calc(var(--sb) + 164px);background:rgba(18,18,20,.9);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.sheet{background:var(--bg)}
+.save{box-shadow:0 10px 20px -12px rgba(31,111,214,.9)}
+.memo .mtx{font-size:15px}
+@media (prefers-reduced-motion:reduce){button{transition:none}button:active{transform:none}}
 </style>
 </head>
 <body>
@@ -632,9 +699,10 @@ function vSettings() {
     <section class="card"><div class="card-h"><span class="mono">TOGETHER — なかま</span></div>
       <p class="note">「なかま」は共有のプロトタイプです。仲間はデモ用の架空の人で、まだ本当の同期はしません。</p>
       <button class="textbtn" data-action="resetSocial">${IC.repeat}なかまのデモをリセット</button></section>
-    <section class="card"><div class="card-h"><span class="mono">ABOUT</span><span class="mono">v2.0</span></div>
+    <section class="card"><div class="card-h"><span class="mono">ABOUT</span><span class="mono">v3.0</span></div>
       <p class="note">DOTPLAN — 予定の中身は見せずに、「いま」と「これから」の気配だけを仲間と共有するタスク＆カレンダー。オフラインでも動作します。</p>
-      <a class="textbtn" href="v1/" style="color:inherit;text-decoration:none">${IC.rightS}前のデザイン（v1）を開く</a></section>
+      <a class="textbtn" href="v2/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v2）を開く</a>
+      <a class="textbtn" href="v1/" style="color:inherit;text-decoration:none">${IC.rightS}最初のデザイン（v1）を開く</a></section>
   </main>`;
 }
 
