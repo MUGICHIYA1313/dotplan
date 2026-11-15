@@ -491,6 +491,10 @@ b,strong{font-weight:500}
 .mini,.pill,.chip,.textbtn,.link,.save{font-weight:500}
 .wd{font-weight:500}
 .now .ttl,.card.now .ttl{font-weight:500}
+/* ===== v4.3：iPhoneでは500でも日本語が太く出るので、すべて400（ヒラギノW3）に ===== */
+#app *{font-weight:400!important}
+#app .brand{font-weight:600!important}
+#app .wk .d,#app .count,#app .now .rng,#app .big{font-weight:500!important}
 </style>
 </head>
 <body>
@@ -830,7 +834,7 @@ function vSettings() {
     <section class="card"><div class="card-h"><span class="mono">なかま</span></div>
       <p class="note">「なかま」は共有のプロトタイプです。仲間はデモ用の架空の人で、まだ本当の同期はしません。</p>
       <button class="textbtn" data-action="resetSocial">${IC.repeat}なかまのデモをリセット</button></section>
-    <section class="card"><div class="card-h"><span class="mono">このアプリについて</span><span class="mono">v4.2</span></div>
+    <section class="card"><div class="card-h"><span class="mono">このアプリについて</span><span class="mono">v4.3</span></div>
       <button class="textbtn" onclick="window.DPTune&&DPTune.open()">${IC.rightS}デザイン調整モードを開く</button>
       <p class="note">DOTPLAN — 予定の中身は見せずに、「いま」と「これから」の気配だけを仲間と共有するタスク＆カレンダー。オフラインでも動作します。</p>
       <a class="textbtn" href="v3/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v3）を開く</a>
