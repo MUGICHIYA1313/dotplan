@@ -430,6 +430,48 @@ button:active{transform:scale(.97)}
   box-shadow:0 10px 30px -10px rgba(0,0,0,.25),0 0 0 1px rgba(0,0,0,.04)}
 .fab::before{display:none}
 .toast{background:rgba(21,21,21,.92)}
+
+/* ===== v4.1：写真の雰囲気にさらに寄せる。大きな日付をやめて見出し中心に、予定は投稿カードの形 ===== */
+.brand{position:relative;padding:calc(var(--st) + 12px) 0 6px;font-size:22px}
+.brand .bset{position:absolute;right:16px;bottom:0;width:38px;height:38px}
+.dayh{display:flex;align-items:center;justify-content:space-between;padding:8px 18px 6px}
+.dayh h2{margin:0;font-size:17px;font-weight:800}.dayh h2 span{font-weight:700}
+.dayh .tdy{font-size:12px;font-weight:700;color:var(--muted)}
+.week{padding-bottom:10px}
+.wk{height:62px}.wk .d{width:34px;height:34px;font-size:15px}
+.wk.today .d::after{display:none}
+/* 横の列：写真の下に太字の2行 */
+.rail-w{margin:0 -14px 14px}
+.sec-h,.card-h{min-height:38px}
+.rc{flex:0 0 156px}
+.rc .ph{height:100px;border-radius:12px}
+.rc .rn,.rc .rs2{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.45}
+.rc .rn{display:none}
+
+/* カード */
+:root{--r:14px}
+.card{border-radius:14px}
+.me .pdot{width:38px;height:38px;font-size:12px}
+.me .stx b{font-size:17px;font-weight:800}
+/* 投稿カード */
+.post{display:flex;flex-direction:column;align-items:flex-start;gap:6px;width:100%;text-align:left;border:none;background:#fff;border-radius:14px;padding:14px 16px;margin:0 0 10px;box-shadow:var(--sh)}
+.post .ph-h{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.post .av{width:30px;height:30px;border-radius:50%;background:#5A5A58;display:flex;align-items:center;justify-content:center}
+.post .av .mk{filter:brightness(0) invert(1);transform:scale(.9)}
+.post .who{font-size:13px;font-weight:600;color:#3A3A38;font-variant-numeric:tabular-nums}
+.post .pt{font-size:17px;font-weight:800;line-height:1.35}
+.post .pd{font-size:14px;line-height:1.6}
+.post .tags{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:12px;color:var(--muted);margin-top:2px}
+.post.past{opacity:.55}.post.past .pt{text-decoration:line-through}
+/* タスクも同じ形に：太字のタイトルと #タグ */
+.card.flat .trow{padding:10px 12px 10px 6px;margin-bottom:10px;border-radius:14px}
+.card.flat .trow .tt{font-size:17px;font-weight:800}
+.card.flat .meta{font-size:12px;color:var(--muted);gap:4px 10px}
+.card.flat .meta .mk,.card.flat .meta .sl{display:none}
+.card.flat .meta>span:not(.hi):not(.decl):not(.sl):not(.mk)::before{content:"#"}
+/* タブバー：アイコンと文字は黒 */
+.tab{color:var(--ink)}
+.tab .ic{stroke-width:1.8}
 </style>
 </head>
 <body>
@@ -595,6 +637,16 @@ function taskRow(i) {
     </button>
   </div>`;
 }
+/* 今日の画面の予定：投稿カードの形 */
+function postRow(e, dimPast) {
+  const past = dimPast && !e.allDay && eventEnd(e) <= nowMin();
+  const when = e.allDay ? '終日' : `${e.time || ''}${e.end ? '–' + e.end : ''}`;
+  const tags = [catName(e.cat), past ? 'おわった' : ''].filter(Boolean).map((t) => `<span>#${esc(t)}</span>`).join('');
+  return `<button class="post${past ? ' past' : ''}" data-action="edit" data-id="${e.id}">
+    <span class="ph-h"><span class="av">${mk(e.cat)}</span><span class="who">${when}</span></span>
+    <span class="pt">${esc(e.title)}</span>${e.place ? `<span class="pd">${esc(e.place)}</span>` : ''}
+    <span class="tags">${tags}</span></button>`;
+}
 function eventRow(e, dimPast) {
   const past = dimPast && !e.allDay && eventEnd(e) <= nowMin();
   const tm = e.allDay ? '<span class="tm txt">終日</span>' : `<span class="tm">${e.time || ''}</span>`;
@@ -614,10 +666,9 @@ function segBar(done, total) {
 /* ---------- views ---------- */
 function vToday() {
   const t = todayStr(), s = st.sel, d = parse(s), isT = s === t, nm = nowMin();
-  const head = `<div class="brand" aria-label="DOTPLAN"><span class="bm" aria-hidden="true"><i></i><i></i></span>DOTPLAN</div><header class="top"><div>
-      <div class="mono">${DOW_EN[d.getDay()]} — ${d.getFullYear()}.${pad(d.getMonth()+1)}</div>
-      <div class="bigline"><h1 class="big">${pad(d.getDate())}</h1><span class="wd">${DOW_JP[d.getDay()]}曜日</span>${isT ? '<span class="reddot mul" title="今日"></span>' : ''}</div>
-    </div><div class="hbtns">${isT ? '' : '<button class="pill" data-action="goToday">今日へ</button>'}<button class="iconbtn" data-action="tab" data-view="settings" aria-label="設定">${IC.gear}</button></div></header>`;
+  const head = `<div class="brand" aria-label="DOTPLAN"><span class="bm" aria-hidden="true"><i></i><i></i></span>DOTPLAN
+      <button class="iconbtn bset" data-action="tab" data-view="settings" aria-label="設定">${IC.gear}</button></div>
+    <div class="dayh"><h2>${d.getMonth() + 1}月${d.getDate()}日<span>（${DOW_JP[d.getDay()]}）</span></h2>${isT ? '<span class="tdy">今日</span>' : '<button class="pill" data-action="goToday">今日へ</button>'}</div>`;
 
   const ws = addDays(s, -d.getDay());
   const dates = new Set(live().map((i) => i.date));
@@ -656,19 +707,19 @@ function vToday() {
   }
 
   const sched = `<section class="card flat" aria-label="予定">
-    <div class="card-h"><span class="mono">予定</span><button class="link" data-action="toCal">カレンダー${IC.rightS}</button></div>
-    ${evs.length ? evs.map((e) => eventRow(e, isT)).join('') : '<div class="empty">予定はありません</div>'}
+    <div class="card-h"><span class="mono">${isT ? 'きょうの予定' : 'この日の予定'}</span><button class="link" data-action="toCal">カレンダー${IC.rightS}</button></div>
+    ${evs.length ? evs.map((e) => postRow(e, isT)).join('') : '<div class="empty">予定はありません</div>'}
   </section>`;
 
   const tl = live().filter((i) => i.kind === 'task' && (i.date === s || (isT && i.date && i.date < t && !i.done))).sort(taskSort);
   const dn = tl.filter((i) => i.done).length;
   const tasks = `<section class="card flat" aria-label="タスク">
-    <div class="card-h"><span class="mono">やること</span>${tl.length ? `<span class="count">${dn}<span>/${tl.length}</span></span>` : ''}</div>
+    <div class="card-h"><span class="mono">これからのやること</span>${tl.length ? `<span class="count">${dn}<span>/${tl.length}</span></span>` : ''}</div>
     ${segBar(dn, tl.length)}
     ${tl.length ? tl.map(taskRow).join('') : '<div class="empty">この日のタスクはありません</div>'}
   </section>`;
 
-  return `${head}<nav class="week" data-swipe="week" aria-label="週">${wk}</nav><main class="scroll">${now}${isT ? meCard() + friendRail() : ''}${sched}${tasks}</main>`;
+  return `${head}<nav class="week" data-swipe="week" aria-label="週">${wk}</nav><main class="scroll">${isT ? friendRail() : ''}${now}${isT ? meCard() : ''}${sched}${tasks}</main>`;
 }
 
 function vCal() {
@@ -760,7 +811,7 @@ function vSettings() {
     <section class="card"><div class="card-h"><span class="mono">なかま</span></div>
       <p class="note">「なかま」は共有のプロトタイプです。仲間はデモ用の架空の人で、まだ本当の同期はしません。</p>
       <button class="textbtn" data-action="resetSocial">${IC.repeat}なかまのデモをリセット</button></section>
-    <section class="card"><div class="card-h"><span class="mono">このアプリについて</span><span class="mono">v4.0</span></div>
+    <section class="card"><div class="card-h"><span class="mono">このアプリについて</span><span class="mono">v4.1</span></div>
       <button class="textbtn" onclick="window.DPTune&&DPTune.open()">${IC.rightS}デザイン調整モードを開く</button>
       <p class="note">DOTPLAN — 予定の中身は見せずに、「いま」と「これから」の気配だけを仲間と共有するタスク＆カレンダー。オフラインでも動作します。</p>
       <a class="textbtn" href="v3/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v3）を開く</a>
@@ -1363,7 +1414,7 @@ function friendRail() {
     const p = personState(id), nm = PEOPLE[id] || id;
     return `<button class="rc ${p.k}" data-action="person" data-id="${id}" aria-label="${esc(nm)}：${p.label}、${esc(p.sub)}">
       <span class="ph"><span class="ring"></span><span class="ini">${esc(nm.slice(0, 2))}</span></span>
-      <span class="rn">${esc(nm)}</span><span class="rs2">${p.label}・${esc(p.sub)}</span></button>`;
+      <span class="rn">${esc(nm)}</span><span class="rs2">${esc(nm)}　${p.label}<br>${esc(p.sub)}</span></button>`;
   }).join('');
   return `<section class="rail-w" aria-label="なかまのいま"><div class="sec-h"><h2>なかまのいま</h2>
     <button class="link" data-action="tab" data-view="friends">${esc(g.name)}${IC.rightS}</button></div>
