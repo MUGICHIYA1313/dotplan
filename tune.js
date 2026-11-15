@@ -6,7 +6,7 @@
   const DEF = {
     bg: '#EEEEEC', ink: '#151515', blue: '#1F6FD6', yel: '#FFD21F',
     blueGlow: 0, yelGlow: 0, r: 18, glass: 100, blur: 0, shadow: 8,
-    big: 56, weight: 800, dock: '#FFFFFF', active: '#EDEDEB'
+    big: 56, weight: 500, dock: '#FFFFFF', active: '#EDEDEB'
   };
   const FIELDS = [
     { g: '色' },

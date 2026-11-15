@@ -472,6 +472,25 @@ button:active{transform:scale(.97)}
 /* タブバー：アイコンと文字は黒 */
 .tab{color:var(--ink)}
 .tab .ic{stroke-width:1.8}
+/* ===== v4.2：字を全体に細く ===== */
+body{font-weight:400}
+b,strong{font-weight:500}
+.brand{font-weight:600}
+.dayh h2,.sec-h h2,.card-h>.mono:first-child,.post .pt,.card.flat .trow .tt,.me .stx b{font-weight:500}
+.dayh h2 span,.dayh .tdy{font-weight:500}
+.rc .rn,.rc .rs2{font-weight:500}
+.rc .ini{font-weight:500}
+.post .who{font-weight:500}
+.row .rt,.card.flat .row .rt,.trow .tt,.ttl,.memo .mtx{font-weight:500}
+.mono,.grp,.sh-head h2,.cal .dows,.ticks,.mem .when,.state,.hi,.decl{font-weight:500}
+.dot,.big,.wk .d,.count,.now .rng,.row .tm,.cc .n,.bestbox b,.hchip .dot{font-weight:500}
+.big{font-weight:500}.big small{font-weight:500}
+.wk .d{font-weight:500}.wk.sel .s{font-weight:500}
+.pdot{font-weight:500}
+.tab[aria-current="page"]{font-weight:500}
+.mini,.pill,.chip,.textbtn,.link,.save{font-weight:500}
+.wd{font-weight:500}
+.now .ttl,.card.now .ttl{font-weight:500}
 </style>
 </head>
 <body>
@@ -811,7 +830,7 @@ function vSettings() {
     <section class="card"><div class="card-h"><span class="mono">なかま</span></div>
       <p class="note">「なかま」は共有のプロトタイプです。仲間はデモ用の架空の人で、まだ本当の同期はしません。</p>
       <button class="textbtn" data-action="resetSocial">${IC.repeat}なかまのデモをリセット</button></section>
-    <section class="card"><div class="card-h"><span class="mono">このアプリについて</span><span class="mono">v4.1</span></div>
+    <section class="card"><div class="card-h"><span class="mono">このアプリについて</span><span class="mono">v4.2</span></div>
       <button class="textbtn" onclick="window.DPTune&&DPTune.open()">${IC.rightS}デザイン調整モードを開く</button>
       <p class="note">DOTPLAN — 予定の中身は見せずに、「いま」と「これから」の気配だけを仲間と共有するタスク＆カレンダー。オフラインでも動作します。</p>
       <a class="textbtn" href="v3/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v3）を開く</a>
