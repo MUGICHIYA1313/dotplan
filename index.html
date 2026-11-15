@@ -13,9 +13,6 @@
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="icons/icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=DM+Mono:wght@400;500&family=Murecho:wght@400;500;700&display=swap">
 <style>
 /* DOTPLAN v2 — 白い紙に、墨・透ける青・黄色の3版で刷ったような見た目。
    重なった青と黄色は multiply で緑に混ざる（シルクスクリーンの刷り重ね）。
@@ -26,9 +23,9 @@
   --blue:#1F6FD6;--blue-t:rgba(31,111,214,.78);--blue-w:rgba(31,111,214,.16);
   --yel:#FFD21F;--yel-t:rgba(255,210,31,.88);--yel-w:rgba(255,210,31,.42);
   --red:var(--blue);--redt:var(--blue);
-  --dot:'Bungee','Murecho','Hiragino Sans',sans-serif;
-  --mono:'DM Mono',ui-monospace,monospace;
-  --jp:'Murecho',-apple-system,'Hiragino Sans',sans-serif;
+  --dot:-apple-system,BlinkMacSystemFont,'SF Pro Display','Hiragino Sans',system-ui,sans-serif;
+  --mono:-apple-system,BlinkMacSystemFont,'SF Pro Text','Hiragino Sans',system-ui,sans-serif;
+  --jp:-apple-system,BlinkMacSystemFont,'SF Pro Text','Hiragino Sans','Hiragino Kaku Gothic ProN',system-ui,sans-serif;
   --st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -368,6 +365,12 @@ button:active{transform:scale(.97)}
 .sheet{background:var(--bg)}
 .save{box-shadow:0 10px 20px -12px rgba(31,111,214,.9)}
 .memo .mtx{font-size:15px}
+/* 文字：iPhone の標準フォント（San Francisco＋ヒラギノ）。数字は太く、幅をそろえる */
+.dot,.big,.wk .d,.count,.now .rng,.row .tm,.cc .n,.bestbox b,.hchip .dot{font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.big{font-weight:800;letter-spacing:-.04em;font-size:64px}
+.now .rng{font-size:22px}.row .tm{font-size:16px;width:52px}.wk .d{font-size:17px;font-weight:600}.cc .n{font-size:15px;font-weight:600}.bestbox b{font-size:19px}
+.mono,.grp,.sh-head h2,.cal .dows,.ticks,.mem .when,.state,.hi,.decl{font-weight:600;letter-spacing:.06em}
+.big small{font-weight:600}
 @media (prefers-reduced-motion:reduce){button{transition:none}button:active{transform:none}}
 </style>
 </head>
@@ -699,7 +702,7 @@ function vSettings() {
     <section class="card"><div class="card-h"><span class="mono">TOGETHER — なかま</span></div>
       <p class="note">「なかま」は共有のプロトタイプです。仲間はデモ用の架空の人で、まだ本当の同期はしません。</p>
       <button class="textbtn" data-action="resetSocial">${IC.repeat}なかまのデモをリセット</button></section>
-    <section class="card"><div class="card-h"><span class="mono">ABOUT</span><span class="mono">v3.0</span></div>
+    <section class="card"><div class="card-h"><span class="mono">ABOUT</span><span class="mono">v3.1</span></div>
       <p class="note">DOTPLAN — 予定の中身は見せずに、「いま」と「これから」の気配だけを仲間と共有するタスク＆カレンダー。オフラインでも動作します。</p>
       <a class="textbtn" href="v2/" style="color:inherit;text-decoration:none">${IC.rightS}ひとつ前のデザイン（v2）を開く</a>
       <a class="textbtn" href="v1/" style="color:inherit;text-decoration:none">${IC.rightS}最初のデザイン（v1）を開く</a></section>
