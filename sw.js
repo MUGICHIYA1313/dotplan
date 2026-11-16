@@ -43,7 +43,7 @@ self.addEventListener('fetch', (e) => {
   // ページ本体: ネット優先（更新をすぐ反映）、オフライン時はキャッシュ
   if (req.mode === 'navigate') {
     // 前のデザイン（v1/）はキャッシュしない：本体のキャッシュと混ざらないように
-    if (url.pathname.includes('/v1/') || url.pathname.includes('/v2/') || url.pathname.includes('/v3/')) return;
+    if (url.pathname.includes('/v1/') || url.pathname.includes('/v2/') || url.pathname.includes('/v3/') || url.pathname.includes('/portfolio/')) return;
     e.respondWith(
       // ブラウザのHTTPキャッシュ（GitHub Pagesは最大10分）を通さず、毎回最新を取りに行く
       fetch(req.url, { cache: 'no-cache', credentials: 'same-origin' }).then((r) => { const cp = r.clone(); caches.open(VERSION).then((c) => c.put('./index.html', cp)); return r; })
